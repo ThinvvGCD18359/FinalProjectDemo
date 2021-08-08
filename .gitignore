@@ -1,0 +1,8 @@
+#client
+client/node_modules
+client/src/firebase
+
+#server
+server/node_modules
+server/firebase/credentials.json
+
