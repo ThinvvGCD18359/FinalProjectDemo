@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { auth, firebase } from "./firebase";
+import * as firebaseui from "firebaseui";
 
 
 export default function Main() {
@@ -23,21 +24,35 @@ export default function Main() {
       );
     }
   
-    async function phoneLogin() {
-      const phoneprovider = new firebase.auth.PhoneAuthProvider();
-      await auth.signInWithPopup(phoneprovider).then(
-        async (result) => {
-          const token = await auth?.currentUser?.getIdToken(true);
-          if (token) {
-            localStorage.setItem("@token", token);
-            history.push("/home");
+    function phoneLogin() {
+            const uiConfig = {    
+            signInOptions: [{
+                provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+                recaptchaParameters: {
+                    type: 'image',
+                    size: 'normal',
+                    badge: 'bottomleft'
+                },
+            defaultCountry: 'VN'
+            }],
+        callbacks: {
+          signInSuccessWithAuthResult: function(authResult, redirectUrl){
+            alert('successful');
+            return true;
           }
         },
-        function (error) {
-          console.log(error);
-        }
-      );
+        signInSuccessUrl : "/home"
+      };
+  
+      if(firebaseui.auth.AuthUI.getInstance()) {
+        const ui = firebaseui.auth.AuthUI.getInstance()
+        ui.start('#firebaseui-auth-container', uiConfig)
+      } else {
+        const ui = new firebaseui.auth.AuthUI(firebase.auth())
+        ui.start('#firebaseui-auth-container', uiConfig)
+      }
     }
+      
   return (
     <div style={{width: "100%"}}>
     <div className="container">
@@ -49,6 +64,7 @@ export default function Main() {
         Login With Phone
       </button>
     </div>
+    <div id="firebaseui-auth-container"></div>
 
     <div className="card">
       <img src="1.jpg" alt="pic" style={{width:"100%"}}/>
@@ -73,8 +89,6 @@ export default function Main() {
       <p>Some text...</p>
       <p><button>View</button></p>
     </div>
-  </div>
-
-    
+  </div>    
   );
 }
