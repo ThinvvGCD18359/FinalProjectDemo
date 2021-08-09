@@ -1,4 +1,4 @@
-const firebase = require("./server/firebase/admin");
+const firebase = require("../firebase/admin");
 
 function authMiddleware(request, response, next) {
   const headerToken = request.headers.authorization;

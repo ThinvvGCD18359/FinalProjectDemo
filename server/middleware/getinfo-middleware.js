@@ -1,4 +1,4 @@
-const firebase = require("./server/firebase/admin");
+const firebase = require("./firebase/admin");
 
 function getInfoMiddleware(req, res, next) {
     firebase

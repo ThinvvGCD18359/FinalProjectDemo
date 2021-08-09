@@ -46,8 +46,8 @@
 }
 
 .button {
-  width: 100px;
-  height: 30px;
+  width: auto;
+  height: auto;
   border: none;
   border-radius: 5px;
   color: white;
@@ -76,16 +76,15 @@
   opacity: 1;
 }
 
-.booklist {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-}
 
 .image {
   width: 100px;
   height: 150px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
 }
 
 h3,
@@ -120,7 +119,7 @@ h1 {
   outline: 0;
   padding: 12px;
   color: white;
-  background-color: #000;
+  background-color: rgb(14, 13, 13);
   text-align: center;
   cursor: pointer;
   width: 100%;

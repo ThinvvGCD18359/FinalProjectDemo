@@ -2,9 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { auth, firebase } from "./firebase";
 import * as firebaseui from "firebaseui";
+import "../node_modules/firebaseui/dist/firebaseui.css"
 
 
-export default function Main() {
+export default function Login() {
     const history = useHistory();
     
     async function googleLogin() {
@@ -25,19 +26,13 @@ export default function Main() {
     }
   
     function phoneLogin() {
-            const uiConfig = {    
+          const uiConfig = {    
             signInOptions: [{
-                provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-                recaptchaParameters: {
-                    type: 'image',
-                    size: 'normal',
-                    badge: 'bottomleft'
-                },
-            defaultCountry: 'VN'
+              provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+              defaultCountry: 'VN'
             }],
-        callbacks: {
+          callbacks: {
           signInSuccessWithAuthResult: function(authResult, redirectUrl){
-            alert('successful');
             return true;
           }
         },
@@ -54,8 +49,8 @@ export default function Main() {
     }
       
   return (
-    <div style={{width: "100%"}}>
-    <div className="container">
+    
+    <div>
       <h1>Welcome to Ticketing Coach 1.0</h1>
       <button onClick={googleLogin} className="login-button">
         Login With Google
@@ -63,32 +58,8 @@ export default function Main() {
       <button onClick={phoneLogin} className="login-button">
         Login With Phone
       </button>
+      <div id="firebaseui-auth-container"></div> 
     </div>
-    <div id="firebaseui-auth-container"></div>
-
-    <div className="card">
-      <img src="1.jpg" alt="pic" style={{width:"100%"}}/>
-      <h1>Dn-Sg</h1>
-      <p class="price">$19.99</p>
-      <p>Some text...</p>
-      <p><button>View</button></p>
-    </div>
-
-    <div className="card">
-      <img src="1.jpg" alt="pic" style={{width:"100%"}}/>
-      <h1>Dn-Sg</h1>
-      <p class="price">$19.99</p>
-      <p>Some text...</p>
-      <p><button>View</button></p>
-    </div>
-
-    <div className="card">
-      <img src="1.jpg" alt="pic" style={{width:"100%"}}/>
-      <h1>Dn-Sg</h1>
-      <p class="price">$19.99</p>
-      <p>Some text...</p>
-      <p><button>View</button></p>
-    </div>
-  </div>    
+      
   );
 }
